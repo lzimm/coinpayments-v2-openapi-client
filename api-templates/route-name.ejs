@@ -1,0 +1,33 @@
+<%
+const { routeInfo, utils } = it;
+const {
+  operationId,
+  method,
+  route,
+  moduleName,
+  responsesTypes,
+  description,
+  tags,
+  summary,
+  pathArgs,
+} = routeInfo;
+const { _, fmtToJSDocLine, require } = utils;
+
+const methodAliases = {
+  get: (suffix) => _.camelCase(`get_${suffix}`),
+  post: (suffix) => _.camelCase(`post_${suffix}`),
+  put: (suffix) => _.camelCase(`put_${suffix}`),
+  patch: (suffix) => _.camelCase(`patch_${suffix}`),
+  delete: (suffix) => _.camelCase(`delete_${suffix}`),
+};
+
+const createCustomOperationId = (method, route, moduleName) => {
+  const commandParts = route.replaceAll(/\{(.*?)\}/g, "").split('/').filter(Boolean).slice(1);
+  const qualifierParts = [...route.matchAll(/\{(.*?)\}/g)].map(([match, qualifier]) => qualifier);
+  const operation = methodAliases[method](commandParts.concat(qualifierParts.length ? ['by'].concat(qualifierParts) : []));
+  console.log(`${method.toUpperCase()} ${route} => ${operation}`);
+  return operation;
+};
+
+return createCustomOperationId(method, route, moduleName);
+%>

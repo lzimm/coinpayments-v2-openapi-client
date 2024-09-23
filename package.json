@@ -1,0 +1,21 @@
+{
+  "name": "coinpayments-v2-openapi-client",
+  "version": "0.0.1",
+  "description": "A wrapper around the API for CoinPayments V2",
+  "scripts": {
+    "build": "node build.js && tsc --build && node test.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lzimm/coinpayments-v2-openapi-client.git"
+  },
+  "author": "lzimm",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "swagger-typescript-api": "^13.0.22",
+    "typescript": "^5.6.2"
+  }
+}
